@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Brain, ArrowUpRight, CheckCircle2, Circle, Plus } from 'lucide-react';
-import { NodeData } from '../types';
+import { Brain, CheckCircle2, Circle, Plus, Briefcase, Target, CheckSquare } from 'lucide-react';
+import { NodeData, TaskLevel } from '../types';
 
 interface MindMapNodeProps {
   data: NodeData & {
     onAiExpand?: () => void;
-    onConvertToTask?: () => void;
+    onConvertToTask?: (level: TaskLevel) => void;
     onAddChild?: () => void;
   };
   isDragging?: boolean;
@@ -55,13 +55,29 @@ const MindMapNode: React.FC<MindMapNodeProps> = ({ data, isDragging }) => {
             <Brain size={14} />
           </button>
           {!isTask && (
-            <button 
-              onClick={(e) => { e.stopPropagation(); data.onConvertToTask?.(); }}
-              className="p-1 hover:bg-[#eef2ff] rounded text-[#8e8e93] hover:text-[#4263eb] transition-colors"
-              title="Push to Execution"
-            >
-              <ArrowUpRight size={14} />
-            </button>
+            <>
+              <button 
+                onClick={(e) => { e.stopPropagation(); data.onConvertToTask?.('project'); }}
+                className="p-1 hover:bg-[#eef2ff] rounded text-[#8e8e93] hover:text-[#4263eb] transition-colors"
+                title="Convert to Project"
+              >
+                <Briefcase size={14} />
+              </button>
+              <button 
+                onClick={(e) => { e.stopPropagation(); data.onConvertToTask?.('goal'); }}
+                className="p-1 hover:bg-[#eef2ff] rounded text-[#8e8e93] hover:text-[#4263eb] transition-colors"
+                title="Convert to Goal"
+              >
+                <Target size={14} />
+              </button>
+              <button 
+                onClick={(e) => { e.stopPropagation(); data.onConvertToTask?.('task'); }}
+                className="p-1 hover:bg-[#eef2ff] rounded text-[#8e8e93] hover:text-[#4263eb] transition-colors"
+                title="Convert to Task"
+              >
+                <CheckSquare size={14} />
+              </button>
+            </>
           )}
         </div>
       </div>
@@ -75,6 +91,12 @@ const MindMapNode: React.FC<MindMapNodeProps> = ({ data, isDragging }) => {
           {data.tags.slice(0, 2).map((tag, i) => (
             <span key={i} className="text-[9px] font-medium text-[#8e8e93]">#{tag}</span>
           ))}
+        </div>
+      )}
+
+      {data.domain && (
+        <div className="mt-2 text-[10px] font-medium text-[#c0c0c7] uppercase tracking-wide">
+          {data.domain}
         </div>
       )}
       
