@@ -33,7 +33,22 @@ export const INITIAL_TASKS: Task[] = [
     description: 'Create technical specifications and system design diagrams.',
     status: 'in-progress',
     priority: 'high',
+    level: 'project',
+    startDate: '2024-06-01',
     dueDate: '2024-06-15',
+    tags: ['Design', 'Technical'],
+    sprint: 'Sprint 1'
+  },
+  {
+    id: 't1-1',
+    title: 'Define service boundaries',
+    description: 'Map bounded contexts and integration points.',
+    status: 'todo',
+    priority: 'medium',
+    level: 'goal',
+    startDate: '2024-06-03',
+    dueDate: '2024-06-10',
+    parentId: 't1',
     tags: ['Design', 'Technical']
   },
   {
@@ -42,8 +57,24 @@ export const INITIAL_TASKS: Task[] = [
     description: 'Implement smart node generation and task synthesis.',
     status: 'todo',
     priority: 'urgent',
+    level: 'task',
+    startDate: '2024-06-05',
     dueDate: '2024-06-20',
-    tags: ['AI', 'Dev']
+    parentId: 't1-1',
+    tags: ['AI', 'Dev'],
+    sprint: 'Sprint 1'
+  },
+  {
+    id: 't3',
+    title: 'Sprint backlog grooming',
+    description: 'Prepare backlog for the upcoming iteration.',
+    status: 'backlog',
+    priority: 'low',
+    level: 'task',
+    startDate: '2024-06-08',
+    dueDate: '2024-06-18',
+    tags: ['Agile'],
+    sprint: 'Sprint 2'
   }
 ];
 
@@ -54,7 +85,8 @@ export const INITIAL_NODES: DiagramNode[] = [
     data: { 
       label: 'ZenFlow Launch', 
       type: 'topic', 
-      tags: ['Milestone'] 
+      tags: ['Milestone'],
+      domain: 'Product' 
     } 
   },
   { 
@@ -62,7 +94,8 @@ export const INITIAL_NODES: DiagramNode[] = [
     position: { x: 100, y: 150 }, 
     data: { 
       label: 'Backend Development', 
-      type: 'topic' 
+      type: 'topic',
+      domain: 'Engineering'
     } 
   },
   { 
@@ -70,7 +103,8 @@ export const INITIAL_NODES: DiagramNode[] = [
     position: { x: 400, y: 150 }, 
     data: { 
       label: 'Frontend UI/UX', 
-      type: 'topic' 
+      type: 'topic',
+      domain: 'Design'
     } 
   },
   { 
@@ -83,7 +117,8 @@ export const INITIAL_NODES: DiagramNode[] = [
       taskId: 't1',
       status: 'in-progress',
       priority: 'high',
-      tags: ['Design', 'Technical']
+      tags: ['Design', 'Technical'],
+      domain: 'Engineering'
     } 
   },
 ];
@@ -92,4 +127,27 @@ export const INITIAL_EDGES: DiagramEdge[] = [
   { id: 'e1-2', source: 'n1', target: 'n2' },
   { id: 'e1-3', source: 'n1', target: 'n3' },
   { id: 'e2-4', source: 'n2', target: 'n4' },
+];
+
+export const INITIAL_FLOW_NODES: DiagramNode[] = [
+  {
+    id: 'f1',
+    position: { x: 180, y: 140 },
+    data: { label: 'Idea intake', type: 'topic' }
+  },
+  {
+    id: 'f2',
+    position: { x: 420, y: 140 },
+    data: { label: 'Scope & prioritize', type: 'action' }
+  },
+  {
+    id: 'f3',
+    position: { x: 660, y: 140 },
+    data: { label: 'Ship to sprint', type: 'note' }
+  }
+];
+
+export const INITIAL_FLOW_EDGES: DiagramEdge[] = [
+  { id: 'fe1-2', source: 'f1', target: 'f2' },
+  { id: 'fe2-3', source: 'f2', target: 'f3' }
 ];
